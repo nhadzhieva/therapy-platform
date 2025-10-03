@@ -1,0 +1,280 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">My Appointments</span>
+  <span class="spacer"></span>
+  @if (user(); as user) {
+    <span class="user-name">{{ user.firstName }}</span>
+  }
+  <button mat-icon-button (click)="logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Loading appointments...</p>
+    </div>
+  }
+
+  <!-- Appointments Content -->
+  @if (!loading()) {
+    <mat-tab-group class="appointments-tabs">
+      <!-- Upcoming Appointments Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">event_available</mat-icon>
+          Upcoming
+          @if (upcomingAppointments().length > 0) {
+            <span class="badge">{{ upcomingAppointments().length }}</span>
+          }
+        </ng-template>
+
+        <div class="tab-content">
+          @if (upcomingAppointments().length === 0) {
+            <div class="empty-state">
+              <mat-icon>event_busy</mat-icon>
+              <h3>No Upcoming Appointments</h3>
+              <p>You don't have any scheduled appointments yet.</p>
+              <button mat-raised-button color="primary" routerLink="/patient/search-therapists">
+                <mat-icon>search</mat-icon>
+                Find a Therapist
+              </button>
+            </div>
+          } @else {
+            <div class="appointments-grid">
+              @for (appointment of upcomingAppointments(); track appointment.id) {
+                <mat-card class="appointment-card">
+                  <mat-card-content>
+                    <div class="appointment-header">
+                      <div class="status-badge">
+                        <mat-icon [color]="getStatusColor(appointment.status)">
+                          {{ getStatusIcon(appointment.status) }}
+                        </mat-icon>
+                        <span [class]="'status-text ' + appointment.status">
+                          {{ appointment.status }}
+                        </span>
+                      </div>
+                      <span class="appointment-id">#{{ appointment.id }}</span>
+                    </div>
+
+                    <div class="appointment-details">
+                      <div class="detail-row">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>{{ appointment.date | date:'fullDate' }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>access_time</mat-icon>
+                        <span>{{ appointment.startTime }} - {{ appointment.endTime }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>description</mat-icon>
+                        <span class="reason">{{ appointment.reason }}</span>
+                      </div>
+                      @if (appointment.notes) {
+                        <div class="detail-row">
+                          <mat-icon>note</mat-icon>
+                          <span class="notes">{{ appointment.notes }}</span>
+                        </div>
+                      }
+                    </div>
+
+                    <div class="appointment-actions">
+                      @if (canCancel(appointment)) {
+                        <button mat-stroked-button color="warn" (click)="cancelAppointment(appointment)">
+                          <mat-icon>cancel</mat-icon>
+                          Cancel
+                        </button>
+                      }
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- Pending Appointments Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">pending</mat-icon>
+          Pending
+          @if (pendingAppointments().length > 0) {
+            <span class="badge">{{ pendingAppointments().length }}</span>
+          }
+        </ng-template>
+
+        <div class="tab-content">
+          @if (pendingAppointments().length === 0) {
+            <div class="empty-state">
+              <mat-icon>check_circle</mat-icon>
+              <h3>No Pending Appointments</h3>
+              <p>You don't have any pending appointments waiting for confirmation.</p>
+            </div>
+          } @else {
+            <div class="appointments-grid">
+              @for (appointment of pendingAppointments(); track appointment.id) {
+                <mat-card class="appointment-card pending">
+                  <mat-card-content>
+                    <div class="appointment-header">
+                      <div class="status-badge">
+                        <mat-icon [color]="getStatusColor(appointment.status)">
+                          {{ getStatusIcon(appointment.status) }}
+                        </mat-icon>
+                        <span [class]="'status-text ' + appointment.status">
+                          {{ appointment.status }}
+                        </span>
+                      </div>
+                      <span class="appointment-id">#{{ appointment.id }}</span>
+                    </div>
+
+                    <div class="appointment-details">
+                      <div class="detail-row">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>{{ appointment.date | date:'fullDate' }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>access_time</mat-icon>
+                        <span>{{ appointment.startTime }} - {{ appointment.endTime }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>description</mat-icon>
+                        <span class="reason">{{ appointment.reason }}</span>
+                      </div>
+                      @if (appointment.notes) {
+                        <div class="detail-row">
+                          <mat-icon>note</mat-icon>
+                          <span class="notes">{{ appointment.notes }}</span>
+                        </div>
+                      }
+                    </div>
+
+                    <div class="appointment-actions">
+                      @if (canCancel(appointment)) {
+                        <button mat-stroked-button color="warn" (click)="cancelAppointment(appointment)">
+                          <mat-icon>cancel</mat-icon>
+                          Cancel
+                        </button>
+                      }
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- Past Appointments Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">history</mat-icon>
+          Past
+          @if (pastAppointments().length > 0) {
+            <span class="badge">{{ pastAppointments().length }}</span>
+          }
+        </ng-template>
+
+        <div class="tab-content">
+          @if (pastAppointments().length === 0) {
+            <div class="empty-state">
+              <mat-icon>history</mat-icon>
+              <h3>No Past Appointments</h3>
+              <p>You haven't had any appointments yet.</p>
+            </div>
+          } @else {
+            <div class="appointments-grid">
+              @for (appointment of pastAppointments(); track appointment.id) {
+                <mat-card class="appointment-card past">
+                  <mat-card-content>
+                    <div class="appointment-header">
+                      <div class="status-badge">
+                        <mat-icon>{{ getStatusIcon(appointment.status) }}</mat-icon>
+                        <span [class]="'status-text ' + appointment.status">
+                          {{ appointment.status }}
+                        </span>
+                      </div>
+                      <span class="appointment-id">#{{ appointment.id }}</span>
+                    </div>
+
+                    <div class="appointment-details">
+                      <div class="detail-row">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>{{ appointment.date | date:'fullDate' }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>access_time</mat-icon>
+                        <span>{{ appointment.startTime }} - {{ appointment.endTime }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>description</mat-icon>
+                        <span class="reason">{{ appointment.reason }}</span>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- Cancelled Appointments Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">cancel</mat-icon>
+          Cancelled
+          @if (cancelledAppointments().length > 0) {
+            <span class="badge">{{ cancelledAppointments().length }}</span>
+          }
+        </ng-template>
+
+        <div class="tab-content">
+          @if (cancelledAppointments().length === 0) {
+            <div class="empty-state">
+              <mat-icon>check_circle</mat-icon>
+              <h3>No Cancelled Appointments</h3>
+              <p>Great! You haven't cancelled any appointments.</p>
+            </div>
+          } @else {
+            <div class="appointments-grid">
+              @for (appointment of cancelledAppointments(); track appointment.id) {
+                <mat-card class="appointment-card cancelled">
+                  <mat-card-content>
+                    <div class="appointment-header">
+                      <div class="status-badge">
+                        <mat-icon color="warn">{{ getStatusIcon(appointment.status) }}</mat-icon>
+                        <span class="status-text cancelled">{{ appointment.status }}</span>
+                      </div>
+                      <span class="appointment-id">#{{ appointment.id }}</span>
+                    </div>
+
+                    <div class="appointment-details">
+                      <div class="detail-row">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>{{ appointment.date | date:'fullDate' }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>access_time</mat-icon>
+                        <span>{{ appointment.startTime }} - {{ appointment.endTime }}</span>
+                      </div>
+                      <div class="detail-row">
+                        <mat-icon>description</mat-icon>
+                        <span class="reason">{{ appointment.reason }}</span>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  }
+</div>
