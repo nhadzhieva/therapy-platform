@@ -31,6 +31,10 @@
               <p class="specialization">{{ therapist.specialization.join(', ') }}</p>
               <p class="rate">${{ therapist.hourlyRate }}/hour</p>
             </div>
+            <button mat-stroked-button color="primary" (click)="viewProfile()" class="view-profile-btn">
+              <mat-icon>visibility</mat-icon>
+              View Profile
+            </button>
           </div>
         </mat-card-content>
       </mat-card>
@@ -53,11 +57,13 @@
                       [matDatepicker]="picker"
                       formControlName="date"
                       [min]="minDate"
+                      [matDatepickerFilter]="dateFilter"
                       (dateChange)="onDateSelected($event.value)"
                       placeholder="Choose a date">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
                     <mat-error>Date is required</mat-error>
+                    <mat-hint>Available dates are highlighted in blue</mat-hint>
                   </mat-form-field>
 
                   @if (selectedDate()) {

@@ -235,10 +235,10 @@
       "date": "2025-10-05",
       "startTime": "09:00",
       "endTime": "10:00",
-      "status": "pending",
+      "status": "cancelled",
       "reason": "first session",
       "createdAt": "2025-10-03T14:21:14.599Z",
-      "updatedAt": "2025-10-03T14:21:14.599Z"
+      "updatedAt": "2025-10-03T16:25:31.325Z"
     },
     {
       "id": "1759501401725174gquh9l",
@@ -251,6 +251,18 @@
       "reason": "description of sessions",
       "createdAt": "2025-10-03T14:23:21.725Z",
       "updatedAt": "2025-10-03T14:23:21.725Z"
+    },
+    {
+      "id": "1759509722217si4mvc042",
+      "patientId": "1",
+      "therapistId": "3",
+      "date": "2025-10-15",
+      "startTime": "13:00",
+      "endTime": "14:00",
+      "status": "pending",
+      "reason": "test description",
+      "createdAt": "2025-10-03T16:42:02.217Z",
+      "updatedAt": "2025-10-03T16:42:02.217Z"
     }
   ],
   "availability": [

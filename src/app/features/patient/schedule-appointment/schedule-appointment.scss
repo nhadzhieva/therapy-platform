@@ -82,6 +82,17 @@
         font-weight: 500;
       }
     }
+
+    .view-profile-btn {
+      align-self: flex-start;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        margin-right: 4px;
+      }
+    }
   }
 }
 
@@ -107,6 +118,44 @@
 
     .full-width {
       width: 100%;
+    }
+
+    .calendar-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .legend-box {
+          width: 24px;
+          height: 24px;
+          border-radius: 4px;
+          border: 2px solid transparent;
+
+          &.available {
+            background-color: #e3f2fd;
+            border-color: #1976d2;
+          }
+
+          &.unavailable {
+            background-color: white;
+            opacity: 0.4;
+            border-color: #ccc;
+          }
+        }
+
+        span {
+          font-size: 0.875rem;
+          color: rgba(0, 0, 0, 0.7);
+        }
+      }
     }
 
     .selected-info {
@@ -255,6 +304,43 @@
     color: rgba(0, 0, 0, 0.7);
     font-size: 0.9rem;
     line-height: 1.5;
+  }
+}
+
+// Custom Calendar Styling
+::ng-deep {
+  // Style for available dates in the calendar
+  .mat-calendar-body-cell.available-date {
+    .mat-calendar-body-cell-content {
+      background-color: #e3f2fd;
+      border: 2px solid #1976d2;
+      font-weight: 500;
+      color: #1976d2;
+    }
+  }
+
+  // Hover effect for available dates
+  .mat-calendar-body-cell.available-date:not(.mat-calendar-body-disabled):hover {
+    .mat-calendar-body-cell-content {
+      background-color: #1976d2;
+      color: white;
+    }
+  }
+
+  // Selected available date
+  .mat-calendar-body-cell.available-date.mat-calendar-body-selected {
+    .mat-calendar-body-cell-content {
+      background-color: #1976d2;
+      color: white;
+      border-color: #0d47a1;
+    }
+  }
+
+  // Make unavailable dates more subtle
+  .mat-calendar-body-cell:not(.available-date):not(.mat-calendar-body-disabled) {
+    .mat-calendar-body-cell-content {
+      opacity: 0.4;
+    }
   }
 }
 

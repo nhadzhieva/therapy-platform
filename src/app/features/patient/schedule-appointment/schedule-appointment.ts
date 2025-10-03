@@ -1,10 +1,10 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, computed, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,14 +16,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import {
   selectSelectedTherapist,
   selectCurrentUser,
   createAppointment,
+  createAppointmentSuccess,
+  loadTherapist,
+  selectTherapist,
   logout
 } from '../../../store';
 import { AppointmentStatus } from '../../../shared/models';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -51,6 +56,8 @@ export class ScheduleAppointmentComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly actions$ = inject(Actions);
 
   readonly user = toSignal(this.store.select(selectCurrentUser));
   readonly therapist = toSignal(this.store.select(selectSelectedTherapist));
@@ -64,16 +71,13 @@ export class ScheduleAppointmentComponent {
     return t ? `Dr. ${t.firstName} ${t.lastName}` : '';
   });
 
-  // Form groups for each step
   dateFormGroup: FormGroup;
   timeFormGroup: FormGroup;
   detailsFormGroup: FormGroup;
 
-  // Selected values
   selectedDate = signal<Date | null>(null);
   selectedTimeSlot = signal<{ start: string; end: string } | null>(null);
 
-  // Available time slots based on selected date
   availableTimeSlots = computed(() => {
     const date = this.selectedDate();
     const therapist = this.therapist();
@@ -87,7 +91,6 @@ export class ScheduleAppointmentComponent {
       slot => slot.dayOfWeek === dayOfWeek && slot.isAvailable
     );
 
-    // Generate hourly slots from availability
     const slots: { start: string; end: string; display: string }[] = [];
     availability.forEach(avail => {
       const [startHour] = avail.startTime.split(':').map(Number);
@@ -104,7 +107,31 @@ export class ScheduleAppointmentComponent {
     return slots;
   });
 
+  availableDaysOfWeek = computed(() => {
+    const therapist = this.therapist();
+    if (!therapist?.availability) {
+      return new Set<number>();
+    }
+    return new Set(
+      therapist.availability
+        .filter(slot => slot.isAvailable)
+        .map(slot => slot.dayOfWeek)
+    );
+  });
+
   minDate = new Date();
+
+  dateFilter = (date: Date | null): boolean => {
+    if (!date) return false;
+    const dayOfWeek = date.getDay();
+    return this.availableDaysOfWeek().has(dayOfWeek);
+  };
+
+  // Date class function to add custom classes to calendar dates
+  dateClass = (date: Date): string => {
+    const dayOfWeek = date.getDay();
+    return this.availableDaysOfWeek().has(dayOfWeek) ? 'available-date' : '';
+  };
 
   constructor() {
     this.dateFormGroup = this.fb.group({
@@ -119,9 +146,17 @@ export class ScheduleAppointmentComponent {
       reason: ['', [Validators.required, Validators.minLength(10)]],
       notes: ['']
     });
+
+    effect(() => {
+      const therapistId = this.therapistId();
+      if (therapistId) {
+        this.store.dispatch(selectTherapist({ id: therapistId }));
+        this.store.dispatch(loadTherapist({ id: therapistId }));
+      }
+    });
   }
 
-  onDateSelected(date: Date): void {
+  onDateSelected(date: Date | null): void {
     this.selectedDate.set(date);
   }
 
@@ -130,10 +165,17 @@ export class ScheduleAppointmentComponent {
     this.timeFormGroup.patchValue({ timeSlot: slot });
   }
 
+  viewProfile(): void {
+    const therapistId = this.therapistId();
+    if (therapistId) {
+      this.router.navigate(['/patient/therapist', therapistId]);
+    }
+  }
+
   goBack(): void {
     const therapistId = this.therapistId();
     if (therapistId) {
-      this.router.navigate(['/patient/therapist-profile', therapistId]);
+      this.router.navigate(['/patient/therapist', therapistId]);
     } else {
       this.router.navigate(['/patient/search-therapists']);
     }
@@ -168,8 +210,14 @@ export class ScheduleAppointmentComponent {
 
       this.store.dispatch(createAppointment({ appointment }));
 
-      // Navigate back to dashboard after submission
-      this.router.navigate(['/patient/dashboard']);
+      setTimeout(() => {
+        this.snackBar.open('Appointment requested successfully! Waiting for therapist confirmation.', 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+        this.router.navigate(['/patient/appointments']);
+      }, 500);
     }
   }
 }

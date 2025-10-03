@@ -41,9 +41,12 @@ export const routes: Routes = [
       {
         path: 'schedule-appointment/:id',
         loadComponent: () => import('./features/patient/schedule-appointment/schedule-appointment').then(m => m.ScheduleAppointmentComponent)
+      },
+      {
+        path: 'appointments',
+        loadComponent: () => import('./features/patient/appointments/appointments').then(m => m.AppointmentsComponent)
       }
       // TODO: Add more patient routes when components are implemented
-      // { path: 'appointments', loadComponent: () => import('./features/patient/appointments/appointments.component').then(m => m.AppointmentsComponent) },
       // { path: 'profile', loadComponent: () => import('./features/patient/profile/profile.component').then(m => m.ProfileComponent) }
     ]
   },
