@@ -48,32 +48,33 @@ export class SearchTherapistsComponent {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
+  // Convert search control changes to a signal
+  private readonly searchTerm = toSignal(
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ),
+    { initialValue: '' }
+  );
+
   readonly filteredTherapists = computed(() => {
-    const searchTerm = this.searchControl.value?.toLowerCase() || '';
+    const search = this.searchTerm()?.toLowerCase() || '';
     const therapists = this.allTherapists();
 
-    if (!searchTerm) {
+    if (!search) {
       return therapists;
     }
 
     return therapists.filter(therapist =>
-      therapist.firstName.toLowerCase().includes(searchTerm) ||
-      therapist.lastName.toLowerCase().includes(searchTerm) ||
-      therapist.specialization.some(spec => spec.toLowerCase().includes(searchTerm)) ||
-      therapist.bio.toLowerCase().includes(searchTerm)
+      therapist.firstName.toLowerCase().includes(search) ||
+      therapist.lastName.toLowerCase().includes(search) ||
+      therapist.specialization.some(spec => spec.toLowerCase().includes(search)) ||
+      therapist.bio.toLowerCase().includes(search)
     );
   });
 
   constructor() {
     this.loadTherapists();
-
-    // Set up search debouncing
-    toSignal(
-      this.searchControl.valueChanges.pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
-    );
   }
 
   loadTherapists(): void {
@@ -102,12 +103,10 @@ export class SearchTherapistsComponent {
   }
 
   viewTherapistDetails(therapistId: string): void {
-    // TODO: Navigate to therapist details page when implemented
-    console.log('View therapist details:', therapistId);
+    this.router.navigate(['/patient/therapist', therapistId]);
   }
 
   bookAppointment(therapistId: string): void {
-    // TODO: Navigate to booking page when implemented
-    console.log('Book appointment with:', therapistId);
+    this.router.navigate(['/patient/therapist', therapistId]);
   }
 }

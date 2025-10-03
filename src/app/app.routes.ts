@@ -33,6 +33,10 @@ export const routes: Routes = [
       {
         path: 'search-therapists',
         loadComponent: () => import('./features/patient/search-therapists/search-therapists').then(m => m.SearchTherapistsComponent)
+      },
+      {
+        path: 'therapist/:id',
+        loadComponent: () => import('./features/patient/therapist-profile/therapist-profile').then(m => m.TherapistProfileComponent)
       }
       // TODO: Add more patient routes when components are implemented
       // { path: 'appointments', loadComponent: () => import('./features/patient/appointments/appointments.component').then(m => m.AppointmentsComponent) },

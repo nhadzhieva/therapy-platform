@@ -75,94 +75,130 @@
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "1759390669995reoem9dmx",
-      "email": "test@t",
+      "id": "5",
+      "email": "therapist4@test.com",
+      "password": "password123",
       "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:37:49.995Z",
-      "password": "123456"
+      "firstName": "Dr. James",
+      "lastName": "Wilson",
+      "phone": "+1234567894",
+      "avatar": "https://i.pravatar.cc/150?img=5",
+      "specialization": [
+        "Grief Counseling",
+        "Loss",
+        "End-of-Life Support"
+      ],
+      "education": "Ph.D. in Thanatology, Columbia University",
+      "bio": "Compassionate specialist helping individuals navigate grief and loss with dignity and support.",
+      "yearsOfExperience": 15,
+      "hourlyRate": 140,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "1759390673256rmrdrsr4x",
-      "email": "test@t",
+      "id": "6",
+      "email": "therapist5@test.com",
+      "password": "password123",
       "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:37:53.256Z",
-      "password": "123456"
+      "firstName": "Dr. Lisa",
+      "lastName": "Martinez",
+      "phone": "+1234567895",
+      "avatar": "https://i.pravatar.cc/150?img=6",
+      "specialization": [
+        "Addiction Recovery",
+        "Substance Abuse",
+        "Behavioral Therapy"
+      ],
+      "education": "Psy.D. in Addiction Psychology, UCLA",
+      "bio": "Dedicated to helping individuals overcome addiction and build healthy, sustainable lifestyles.",
+      "yearsOfExperience": 9,
+      "hourlyRate": 135,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "1759390680356h39suyude",
-      "email": "test@t",
+      "id": "7",
+      "email": "therapist6@test.com",
+      "password": "password123",
       "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:38:00.356Z",
-      "password": "123456"
+      "firstName": "Dr. David",
+      "lastName": "Chen",
+      "phone": "+1234567896",
+      "avatar": "https://i.pravatar.cc/150?img=7",
+      "specialization": [
+        "Mindfulness",
+        "Meditation",
+        "Stress Reduction"
+      ],
+      "education": "Ph.D. in Mind-Body Medicine, Duke University",
+      "bio": "Integrating Eastern mindfulness practices with Western psychology for holistic mental wellness.",
+      "yearsOfExperience": 11,
+      "hourlyRate": 145,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "1759390680823y0ieynpp2",
-      "email": "test@t",
+      "id": "8",
+      "email": "therapist7@test.com",
+      "password": "password123",
       "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:38:00.823Z",
-      "password": "123456"
+      "firstName": "Dr. Rachel",
+      "lastName": "Thompson",
+      "phone": "+1234567897",
+      "avatar": "https://i.pravatar.cc/150?img=8",
+      "specialization": [
+        "OCD",
+        "Phobias",
+        "Panic Disorders"
+      ],
+      "education": "Psy.D. in Clinical Psychology, University of Michigan",
+      "bio": "Expert in treating anxiety disorders using evidence-based exposure and response prevention techniques.",
+      "yearsOfExperience": 7,
+      "hourlyRate": 125,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "1759390681038kp8xddgjm",
-      "email": "test@t",
+      "id": "9",
+      "email": "therapist8@test.com",
+      "password": "password123",
       "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:38:01.038Z",
-      "password": "123456"
+      "firstName": "Dr. Alex",
+      "lastName": "Rodriguez",
+      "phone": "+1234567898",
+      "avatar": "https://i.pravatar.cc/150?img=9",
+      "specialization": [
+        "LGBTQ+ Issues",
+        "Identity",
+        "Coming Out Support"
+      ],
+      "education": "Ph.D. in Counseling Psychology, NYU",
+      "bio": "Creating a safe, affirming space for LGBTQ+ individuals navigating identity and acceptance.",
+      "yearsOfExperience": 6,
+      "hourlyRate": 120,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "1759390681223dxuj60nt9",
-      "email": "test@t",
+      "id": "10",
+      "email": "therapist9@test.com",
+      "password": "password123",
       "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:38:01.223Z",
-      "password": "123456"
-    },
-    {
-      "id": "17593909136839vx907xkt",
-      "email": "test@t",
-      "role": "therapist",
-      "firstName": "Test",
-      "lastName": "TestT",
-      "avatar": "https://i.pravatar.cc/150?u=test@t",
-      "createdAt": "2025-10-02T07:41:53.683Z",
-      "password": "123456"
-    },
-    {
-      "id": "1759407892548mr9yux8w8",
-      "email": "t@test.com",
-      "role": "patient",
-      "firstName": "T ",
-      "lastName": "Test",
-      "avatar": "https://i.pravatar.cc/150?u=t@test.com",
-      "createdAt": "2025-10-02T12:24:52.548Z",
-      "password": "1234567"
-    },
-    {
-      "id": "1759408379016z25ysusg0",
-      "email": "therapist@test.com",
-      "role": "patient",
-      "firstName": "t",
-      "lastName": "t",
-      "avatar": "https://i.pravatar.cc/150?u=therapist@test.com",
-      "createdAt": "2025-10-02T12:32:59.016Z",
-      "password": "1234567"
+      "firstName": "Dr. Nina",
+      "lastName": "Patel",
+      "phone": "+1234567899",
+      "avatar": "https://i.pravatar.cc/150?img=10",
+      "specialization": [
+        "Eating Disorders",
+        "Body Image",
+        "Nutrition Psychology"
+      ],
+      "education": "Ph.D. in Eating Disorders, Johns Hopkins University",
+      "bio": "Specialist in treating anorexia, bulimia, and binge eating with compassionate, evidence-based care.",
+      "yearsOfExperience": 13,
+      "hourlyRate": 155,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
     }
   ],
   "appointments": [
