@@ -1,0 +1,219 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">Therapist Profile</span>
+  <span class="spacer"></span>
+  @if (user(); as user) {
+    <span class="user-name">{{ user.firstName }}</span>
+  }
+  <button mat-icon-button (click)="logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <!-- Loading State -->
+  @if (loading() && !therapist()) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Loading therapist profile...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <div class="error-content">
+          <mat-icon color="warn">error</mat-icon>
+          <p>{{ error() }}</p>
+          <button mat-raised-button color="primary" (click)="goBack()">
+            Back to Search
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  <!-- Profile Content -->
+  @if (isDataLoaded() && therapist(); as therapist) {
+    <div class="profile-layout">
+      <!-- Header Card -->
+      <mat-card class="header-card">
+        <mat-card-content>
+          <div class="profile-header">
+            <div class="avatar-section">
+              @if (therapist.avatar) {
+                <img [src]="therapist.avatar" [alt]="fullName()" class="therapist-avatar">
+              } @else {
+                <div class="therapist-avatar-placeholder">
+                  <mat-icon>person</mat-icon>
+                </div>
+              }
+            </div>
+
+            <div class="header-info">
+              <h1 class="therapist-name">{{ fullName() }}</h1>
+              <div class="therapist-meta">
+                <div class="meta-item">
+                  <mat-icon>work</mat-icon>
+                  <span>{{ therapist.yearsOfExperience }} years of experience</span>
+                </div>
+                <div class="meta-item">
+                  <mat-icon>attach_money</mat-icon>
+                  <span>${{ therapist.hourlyRate }}/hour</span>
+                </div>
+                @if (therapist.phone) {
+                  <div class="meta-item">
+                    <mat-icon>phone</mat-icon>
+                    <span>{{ therapist.phone }}</span>
+                  </div>
+                }
+              </div>
+
+              <div class="specializations">
+                @for (spec of therapist.specialization; track spec) {
+                  <mat-chip highlighted>{{ spec }}</mat-chip>
+                }
+              </div>
+
+              <div class="action-buttons">
+                <button mat-raised-button color="primary" (click)="bookAppointment()">
+                  <mat-icon>event</mat-icon>
+                  Book Appointment
+                </button>
+                <button mat-stroked-button color="primary" (click)="contactTherapist()">
+                  <mat-icon>email</mat-icon>
+                  Contact
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Details Tabs -->
+      <mat-card class="details-card">
+        <mat-tab-group>
+          <!-- About Tab -->
+          <mat-tab label="About">
+            <div class="tab-content">
+              <section class="section">
+                <h3 class="section-title">
+                  <mat-icon>person</mat-icon>
+                  Biography
+                </h3>
+                <p class="bio-text">{{ therapist.bio }}</p>
+              </section>
+
+              <mat-divider></mat-divider>
+
+              <section class="section">
+                <h3 class="section-title">
+                  <mat-icon>school</mat-icon>
+                  Education & Credentials
+                </h3>
+                <p class="education-text">{{ therapist.education }}</p>
+              </section>
+
+              <mat-divider></mat-divider>
+
+              <section class="section">
+                <h3 class="section-title">
+                  <mat-icon>psychology</mat-icon>
+                  Specializations
+                </h3>
+                <div class="specialization-grid">
+                  @for (spec of therapist.specialization; track spec) {
+                    <div class="spec-card">
+                      <mat-icon>check_circle</mat-icon>
+                      <span>{{ spec }}</span>
+                    </div>
+                  }
+                </div>
+              </section>
+            </div>
+          </mat-tab>
+
+          <!-- Availability Tab -->
+          <mat-tab label="Availability">
+            <div class="tab-content">
+              <section class="section">
+                <h3 class="section-title">
+                  <mat-icon>schedule</mat-icon>
+                  Weekly Schedule
+                </h3>
+
+                @if (therapist.availability && therapist.availability.length > 0) {
+                  <div class="availability-list">
+                    @for (slot of therapist.availability; track slot.id) {
+                      @if (slot.isAvailable) {
+                        <div class="availability-item">
+                          <div class="day-badge">
+                            {{ getDayName(slot.dayOfWeek) }}
+                          </div>
+                          <div class="time-range">
+                            <mat-icon>access_time</mat-icon>
+                            <span>{{ slot.startTime }} - {{ slot.endTime }}</span>
+                          </div>
+                        </div>
+                      }
+                    }
+                  </div>
+                } @else {
+                  <div class="no-availability">
+                    <mat-icon>info</mat-icon>
+                    <p>Availability information not provided. Please contact the therapist directly.</p>
+                  </div>
+                }
+              </section>
+            </div>
+          </mat-tab>
+
+          <!-- Contact Tab -->
+          <mat-tab label="Contact">
+            <div class="tab-content">
+              <section class="section">
+                <h3 class="section-title">
+                  <mat-icon>contact_mail</mat-icon>
+                  Contact Information
+                </h3>
+
+                <div class="contact-info">
+                  @if (therapist.email) {
+                    <div class="contact-item">
+                      <mat-icon>email</mat-icon>
+                      <div class="contact-details">
+                        <span class="label">Email</span>
+                        <a [href]="'mailto:' + therapist.email">{{ therapist.email }}</a>
+                      </div>
+                    </div>
+                  }
+
+                  @if (therapist.phone) {
+                    <div class="contact-item">
+                      <mat-icon>phone</mat-icon>
+                      <div class="contact-details">
+                        <span class="label">Phone</span>
+                        <a [href]="'tel:' + therapist.phone">{{ therapist.phone }}</a>
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <div class="contact-cta">
+                  <p>Ready to start your therapy journey?</p>
+                  <button mat-raised-button color="primary" (click)="bookAppointment()">
+                    <mat-icon>calendar_today</mat-icon>
+                    Schedule an Appointment
+                  </button>
+                </div>
+              </section>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+  }
+</div>

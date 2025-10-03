@@ -10,6 +10,7 @@ import { routes } from './app.routes';
 import { reducers } from './store';
 import { AuthEffects } from './store/auth/auth.effects';
 import { AppointmentsEffects } from './store/appointments/appointments.effects';
+import { TherapistsEffects } from './store/therapists/therapists.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideStore(reducers),
-    provideEffects([AuthEffects, AppointmentsEffects]),
+    provideEffects([AuthEffects, AppointmentsEffects, TherapistsEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
