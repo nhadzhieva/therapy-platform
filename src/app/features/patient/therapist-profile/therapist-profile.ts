@@ -89,9 +89,7 @@ export class TherapistProfileComponent {
   bookAppointment(): void {
     const therapistId = this.therapist()?.id;
     if (therapistId) {
-      // TODO: Navigate to booking page when implemented
-      console.log('Book appointment with therapist:', therapistId);
-      // this.router.navigate(['/patient/book-appointment', therapistId]);
+      this.router.navigate(['/patient/schedule-appointment', therapistId]);
     }
   }
 

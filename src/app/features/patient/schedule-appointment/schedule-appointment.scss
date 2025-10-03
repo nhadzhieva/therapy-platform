@@ -1,0 +1,275 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .toolbar-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .user-name {
+    margin-right: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+.container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.appointment-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// Therapist Info Card
+.therapist-info-card {
+  .therapist-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .therapist-avatar-small {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .therapist-avatar-placeholder-small {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      mat-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+        color: #757575;
+      }
+    }
+
+    .info-text {
+      flex: 1;
+
+      h3 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+
+      .specialization {
+        margin: 0 0 0.25rem 0;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 0.9rem;
+      }
+
+      .rate {
+        margin: 0;
+        color: #1976d2;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Stepper Card
+.stepper-card {
+  mat-card-content {
+    padding: 1.5rem;
+  }
+
+  .step-content {
+    padding: 1rem 0;
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    .step-description {
+      margin: 0 0 1.5rem 0;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .full-width {
+      width: 100%;
+    }
+
+    .selected-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: #e3f2fd;
+      border-radius: 4px;
+      margin-top: 1rem;
+
+      mat-icon {
+        color: #1976d2;
+      }
+
+      span {
+        color: #1976d2;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .step-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+  }
+}
+
+// Time Slots
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .time-slot-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    height: auto;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #e3f2fd;
+      border-color: #1976d2;
+    }
+
+    &.selected {
+      background: #1976d2;
+      color: white;
+      border-color: #1976d2;
+
+      mat-icon {
+        color: white;
+      }
+    }
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.no-slots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  background: #fff3e0;
+  border-radius: 4px;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #f57c00;
+  }
+
+  p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+// Confirmation Details
+.confirmation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+
+  .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    mat-icon {
+      color: #1976d2;
+      margin-top: 2px;
+    }
+
+    > div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .label {
+        font-size: 0.875rem;
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: 500;
+      }
+
+      .value {
+        font-size: 1rem;
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+  }
+}
+
+.confirmation-note {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #e3f2fd;
+  border-radius: 4px;
+  margin-top: 1.5rem;
+
+  mat-icon {
+    color: #1976d2;
+    flex-shrink: 0;
+  }
+
+  p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .time-slots {
+    grid-template-columns: 1fr;
+  }
+
+  .therapist-info {
+    flex-direction: column;
+    text-align: center;
+  }
+}

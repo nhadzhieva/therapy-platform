@@ -107,6 +107,6 @@ export class SearchTherapistsComponent {
   }
 
   bookAppointment(therapistId: string): void {
-    this.router.navigate(['/patient/therapist', therapistId]);
+    this.router.navigate(['/patient/schedule-appointment', therapistId]);
   }
 }

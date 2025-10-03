@@ -227,6 +227,30 @@
       "notes": "",
       "createdAt": "2025-10-01T00:00:00.000Z",
       "updatedAt": "2025-10-01T00:00:00.000Z"
+    },
+    {
+      "id": "17595012745999lp4vbbmf",
+      "patientId": "1",
+      "therapistId": "2",
+      "date": "2025-10-05",
+      "startTime": "09:00",
+      "endTime": "10:00",
+      "status": "pending",
+      "reason": "first session",
+      "createdAt": "2025-10-03T14:21:14.599Z",
+      "updatedAt": "2025-10-03T14:21:14.599Z"
+    },
+    {
+      "id": "1759501401725174gquh9l",
+      "patientId": "1",
+      "therapistId": "3",
+      "date": "2025-10-05",
+      "startTime": "15:00",
+      "endTime": "16:00",
+      "status": "pending",
+      "reason": "description of sessions",
+      "createdAt": "2025-10-03T14:23:21.725Z",
+      "updatedAt": "2025-10-03T14:23:21.725Z"
     }
   ],
   "availability": [

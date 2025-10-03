@@ -1,0 +1,233 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">Schedule Appointment</span>
+  <span class="spacer"></span>
+  @if (user(); as user) {
+    <span class="user-name">{{ user.firstName }}</span>
+  }
+  <button mat-icon-button (click)="logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  @if (therapist(); as therapist) {
+    <div class="appointment-layout">
+      <!-- Therapist Info Card -->
+      <mat-card class="therapist-info-card">
+        <mat-card-content>
+          <div class="therapist-info">
+            @if (therapist.avatar) {
+              <img [src]="therapist.avatar" [alt]="fullName()" class="therapist-avatar-small">
+            } @else {
+              <div class="therapist-avatar-placeholder-small">
+                <mat-icon>person</mat-icon>
+              </div>
+            }
+            <div class="info-text">
+              <h3>{{ fullName() }}</h3>
+              <p class="specialization">{{ therapist.specialization.join(', ') }}</p>
+              <p class="rate">${{ therapist.hourlyRate }}/hour</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Stepper Card -->
+      <mat-card class="stepper-card">
+        <mat-card-content>
+          <mat-stepper linear #stepper>
+            <!-- Step 1: Select Date -->
+            <mat-step [stepControl]="dateFormGroup" label="Select Date">
+              <form [formGroup]="dateFormGroup">
+                <div class="step-content">
+                  <h2>Choose an appointment date</h2>
+                  <p class="step-description">Select a date for your therapy session</p>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Appointment Date</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      formControlName="date"
+                      [min]="minDate"
+                      (dateChange)="onDateSelected($event.value)"
+                      placeholder="Choose a date">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>Date is required</mat-error>
+                  </mat-form-field>
+
+                  @if (selectedDate()) {
+                    <div class="selected-info">
+                      <mat-icon>event</mat-icon>
+                      <span>{{ selectedDate() | date:'fullDate' }}</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="step-actions">
+                  <button mat-button (click)="goBack()">Cancel</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Step 2: Select Time -->
+            <mat-step [stepControl]="timeFormGroup" label="Select Time">
+              <form [formGroup]="timeFormGroup">
+                <div class="step-content">
+                  <h2>Choose a time slot</h2>
+                  <p class="step-description">Available time slots for {{ selectedDate() | date:'mediumDate' }}</p>
+
+                  @if (availableTimeSlots().length > 0) {
+                    <div class="time-slots">
+                      @for (slot of availableTimeSlots(); track slot.start) {
+                        <button
+                          type="button"
+                          mat-stroked-button
+                          class="time-slot-button"
+                          [class.selected]="selectedTimeSlot()?.start === slot.start"
+                          (click)="onTimeSlotSelected(slot)">
+                          <mat-icon>schedule</mat-icon>
+                          {{ slot.display }}
+                        </button>
+                      }
+                    </div>
+                  } @else {
+                    <div class="no-slots">
+                      <mat-icon>info</mat-icon>
+                      <p>No available time slots for this date. Please select a different date.</p>
+                    </div>
+                  }
+                </div>
+
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button color="primary" matStepperNext [disabled]="!selectedTimeSlot()">Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Step 3: Appointment Details -->
+            <mat-step [stepControl]="detailsFormGroup" label="Details">
+              <form [formGroup]="detailsFormGroup">
+                <div class="step-content">
+                  <h2>Appointment details</h2>
+                  <p class="step-description">Tell us about your reason for the appointment</p>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Reason for Appointment</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="reason"
+                      rows="4"
+                      placeholder="Please describe the main reason for seeking therapy..."
+                      required></textarea>
+                    <mat-error>
+                      @if (detailsFormGroup.get('reason')?.hasError('required')) {
+                        Reason is required
+                      }
+                      @if (detailsFormGroup.get('reason')?.hasError('minlength')) {
+                        Please provide at least 10 characters
+                      }
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Additional Notes (Optional)</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="notes"
+                      rows="3"
+                      placeholder="Any additional information you'd like to share..."></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="step-actions">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <!-- Step 4: Confirmation -->
+            <mat-step label="Confirm">
+              <div class="step-content">
+                <h2>Review your appointment</h2>
+                <p class="step-description">Please review the details before confirming</p>
+
+                <div class="confirmation-details">
+                  <div class="detail-row">
+                    <mat-icon>person</mat-icon>
+                    <div>
+                      <span class="label">Therapist</span>
+                      <span class="value">{{ fullName() }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-row">
+                    <mat-icon>event</mat-icon>
+                    <div>
+                      <span class="label">Date</span>
+                      <span class="value">{{ selectedDate() | date:'fullDate' }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-row">
+                    <mat-icon>schedule</mat-icon>
+                    <div>
+                      <span class="label">Time</span>
+                      <span class="value">{{ selectedTimeSlot()?.start }} - {{ selectedTimeSlot()?.end }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-row">
+                    <mat-icon>description</mat-icon>
+                    <div>
+                      <span class="label">Reason</span>
+                      <span class="value">{{ detailsFormGroup.get('reason')?.value }}</span>
+                    </div>
+                  </div>
+
+                  @if (detailsFormGroup.get('notes')?.value) {
+                    <div class="detail-row">
+                      <mat-icon>note</mat-icon>
+                      <div>
+                        <span class="label">Additional Notes</span>
+                        <span class="value">{{ detailsFormGroup.get('notes')?.value }}</span>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="detail-row">
+                    <mat-icon>attach_money</mat-icon>
+                    <div>
+                      <span class="label">Session Cost</span>
+                      <span class="value">${{ therapist.hourlyRate }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="confirmation-note">
+                  <mat-icon>info</mat-icon>
+                  <p>Your appointment request will be sent to the therapist for confirmation. You will receive a notification once it's confirmed.</p>
+                </div>
+              </div>
+
+              <div class="step-actions">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" (click)="submitAppointment()">
+                  <mat-icon>check</mat-icon>
+                  Confirm Appointment
+                </button>
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>
