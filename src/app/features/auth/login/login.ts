@@ -28,8 +28,8 @@ import { selectAuthLoading, selectAuthError } from '../../../store';
     MatProgressSpinnerModule,
     MatIconModule
   ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss']
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);

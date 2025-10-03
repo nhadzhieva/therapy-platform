@@ -7,8 +7,8 @@ import { Appointment } from '../../models/appointment.model';
   selector: 'app-appointment-item',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './appointment-item.component.html',
-  styleUrl: './appointment-item.component.scss'
+  templateUrl: './appointment-item.html',
+  styleUrl: './appointment-item.scss'
 })
 export class AppointmentItemComponent {
   appointment = input.required<Appointment>();

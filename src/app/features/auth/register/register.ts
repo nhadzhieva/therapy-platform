@@ -31,8 +31,8 @@ import { UserRole } from '../../../shared/models';
     MatIconModule,
     MatSelectModule
   ],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.html',
+  styleUrls: ['./register.scss']
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);

@@ -20,8 +20,8 @@ import { logout, selectCurrentUser } from '../../../store';
     MatIconModule,
     MatToolbarModule
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent {
   private store = inject(Store);

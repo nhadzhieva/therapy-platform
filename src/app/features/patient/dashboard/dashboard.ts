@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AppointmentItemComponent } from '../../../shared/components/appointment-item/appointment-item.component';
+import { AppointmentItemComponent } from '../../../shared/components/appointment-item/appointment-item';
 
 import {
   logout,
@@ -33,8 +33,8 @@ import {
     MatProgressSpinnerModule,
     AppointmentItemComponent
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent {
   private readonly store = inject(Store);

@@ -14,11 +14,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)
+        loadComponent: () => import('./features/auth/login/login').then(m => m.LoginComponent)
       },
       {
         path: 'register',
-        loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent)
+        loadComponent: () => import('./features/auth/register/register').then(m => m.RegisterComponent)
       }
     ]
   },
@@ -28,10 +28,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadComponent: () => import('./features/patient/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/patient/dashboard/dashboard').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'search-therapists',
+        loadComponent: () => import('./features/patient/search-therapists/search-therapists').then(m => m.SearchTherapistsComponent)
       }
       // TODO: Add more patient routes when components are implemented
-      // { path: 'search', loadComponent: () => import('./features/patient/search-therapists/search-therapists.component').then(m => m.SearchTherapistsComponent) },
       // { path: 'appointments', loadComponent: () => import('./features/patient/appointments/appointments.component').then(m => m.AppointmentsComponent) },
       // { path: 'profile', loadComponent: () => import('./features/patient/profile/profile.component').then(m => m.ProfileComponent) }
     ]
@@ -42,7 +45,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadComponent: () => import('./features/therapist/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/therapist/dashboard/dashboard').then(m => m.DashboardComponent)
       }
       // TODO: Add more therapist routes when components are implemented
       // { path: 'profile', loadComponent: () => import('./features/therapist/profile/profile.component').then(m => m.ProfileComponent) },
