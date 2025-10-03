@@ -1,0 +1,115 @@
+<mat-toolbar color="primary">
+  <span>Therapy Platform</span>
+  <span class="spacer"></span>
+  @if (user(); as user) {
+    <span class="user-name">{{ user.firstName }}</span>
+  }
+  <button mat-icon-button (click)="logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="dashboard-container">
+  <!-- Welcome Section -->
+  @if (user(); as user) {
+    <div class="welcome-section">
+      <h1>Welcome back, {{ user.firstName }}!</h1>
+      <p>Manage your therapy sessions and find the right therapist for you</p>
+    </div>
+  }
+
+  <!-- Quick Stats -->
+  <div class="stats-grid">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon [matBadge]="upcomingCount()" matBadgeColor="accent">event</mat-icon>
+          <div class="stat-text">
+            <h3>{{ upcomingCount() }}</h3>
+            <p>Upcoming Sessions</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-content">
+          <mat-icon [matBadge]="pendingCount()" matBadgeColor="warn">schedule</mat-icon>
+          <div class="stat-text">
+            <h3>{{ pendingCount() }}</h3>
+            <p>Pending Confirmations</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Upcoming Appointments -->
+  <mat-card class="appointments-section">
+    <mat-card-header>
+      <mat-card-title>Upcoming Appointments</mat-card-title>
+      <button mat-button color="primary" (click)="viewAppointments()">View All</button>
+    </mat-card-header>
+    <mat-card-content>
+      @if (loading()) {
+        <div class="loading-state">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>Loading appointments...</p>
+        </div>
+      } @else if (hasAppointments()) {
+        <div class="appointments-list">
+          @for (appointment of upcomingAppointments(); track appointment.id) {
+            <app-appointment-item [appointment]="appointment" />
+          } @empty {
+            <div class="empty-state">
+              <mat-icon>event_available</mat-icon>
+              <p>No upcoming appointments</p>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <mat-icon>event_available</mat-icon>
+          <p>No upcoming appointments</p>
+          <button mat-raised-button color="primary" (click)="findTherapists()">
+            Find a Therapist
+          </button>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Quick Actions -->
+  <div class="card-grid">
+    <mat-card class="action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">search</mat-icon>
+        <mat-card-title>Find Therapists</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Search and browse available therapists by specialization</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="findTherapists()">
+          Browse Therapists
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="accent">person</mat-icon>
+        <mat-card-title>My Profile</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Update your personal information and preferences</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="viewProfile()">
+          View Profile
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

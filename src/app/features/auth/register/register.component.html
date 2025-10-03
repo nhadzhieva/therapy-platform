@@ -1,0 +1,99 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title>Create Account</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" type="text" required>
+          @if (registerForm.get('firstName')?.invalid) {
+            <mat-error>{{ getErrorMessage('firstName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" type="text" required>
+          @if (registerForm.get('lastName')?.invalid) {
+            <mat-error>{{ getErrorMessage('lastName') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          @if (registerForm.get('email')?.invalid) {
+            <mat-error>{{ getErrorMessage('email') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 formControlName="password"
+                 [type]="hidePassword() ? 'password' : 'text'"
+                 required>
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (registerForm.get('password')?.invalid) {
+            <mat-error>{{ getErrorMessage('password') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput
+                 formControlName="confirmPassword"
+                 [type]="hideConfirmPassword() ? 'password' : 'text'"
+                 required>
+          <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()" type="button">
+            <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (registerForm.get('confirmPassword')?.invalid) {
+            <mat-error>{{ getErrorMessage('confirmPassword') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>I am a</mat-label>
+          <mat-select formControlName="role" required>
+            @for (role of userRoles; track role.value) {
+              <mat-option [value]="role.value">
+                {{ role.label }}
+              </mat-option>
+            }
+          </mat-select>
+          @if (registerForm.get('role')?.invalid) {
+            <mat-error>{{ getErrorMessage('role') }}</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error(); as error) {
+          <div class="error-message">
+            {{ error }}
+          </div>
+        }
+
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                class="full-width"
+                [disabled]="registerForm.invalid || loading()">
+          @if (loading()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <span>Register</span>
+          }
+        </button>
+
+        <div class="login-link">
+          Already have an account? <a routerLink="/auth/login">Login here</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

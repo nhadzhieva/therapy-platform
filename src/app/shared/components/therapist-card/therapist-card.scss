@@ -1,0 +1,82 @@
+.therapist-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  mat-card-header {
+    padding-bottom: 16px;
+  }
+
+  mat-card-content {
+    flex: 1;
+    padding: 16px 0;
+  }
+
+  mat-card-actions {
+    padding: 8px 16px 16px;
+    margin: 0;
+  }
+}
+
+.therapist-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.bio {
+  margin: 0 0 16px 0;
+  color: rgba(0, 0, 0, 0.7);
+  line-height: 1.5;
+}
+
+.specializations {
+  margin: 16px 0;
+
+  strong {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  mat-chip-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  strong {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.rate {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .info-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,22 @@
+<div class="appointment-item">
+  <div class="appointment-icon">
+    <mat-icon>person</mat-icon>
+  </div>
+  <div class="appointment-details">
+    <h4>Session with Therapist</h4>
+    <p class="appointment-time">
+      <mat-icon>schedule</mat-icon>
+      {{ appointment().date | date:'MMM d, y' }} at {{ appointment().startTime }}
+    </p>
+    @if (appointment().reason) {
+      <p class="appointment-reason">{{ appointment().reason }}</p>
+    }
+  </div>
+  <div class="appointment-status">
+    <span class="status-badge"
+          [class.confirmed]="appointment().status === 'confirmed'"
+          [class.pending]="appointment().status === 'pending'">
+      {{ appointment().status }}
+    </span>
+  </div>
+</div>

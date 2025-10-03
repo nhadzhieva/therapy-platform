@@ -1,0 +1,238 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "patient@test.com",
+      "password": "password123",
+      "role": "patient",
+      "firstName": "John",
+      "lastName": "Doe",
+      "phone": "+1234567890",
+      "avatar": "https://i.pravatar.cc/150?img=1",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "email": "therapist@test.com",
+      "password": "password123",
+      "role": "therapist",
+      "firstName": "Dr. Sarah",
+      "lastName": "Smith",
+      "phone": "+1234567891",
+      "avatar": "https://i.pravatar.cc/150?img=2",
+      "specialization": [
+        "Anxiety",
+        "Depression",
+        "Stress Management"
+      ],
+      "education": "Ph.D. in Clinical Psychology, Harvard University",
+      "bio": "Experienced therapist specializing in cognitive behavioral therapy with over 10 years of practice.",
+      "yearsOfExperience": 10,
+      "hourlyRate": 150,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "email": "therapist2@test.com",
+      "password": "password123",
+      "role": "therapist",
+      "firstName": "Dr. Michael",
+      "lastName": "Johnson",
+      "phone": "+1234567892",
+      "avatar": "https://i.pravatar.cc/150?img=3",
+      "specialization": [
+        "Relationship Counseling",
+        "Family Therapy",
+        "Trauma"
+      ],
+      "education": "Psy.D. in Counseling Psychology, Stanford University",
+      "bio": "Compassionate therapist focusing on relationships and family dynamics.",
+      "yearsOfExperience": 8,
+      "hourlyRate": 130,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "email": "therapist3@test.com",
+      "password": "password123",
+      "role": "therapist",
+      "firstName": "Dr. Emily",
+      "lastName": "Brown",
+      "phone": "+1234567893",
+      "avatar": "https://i.pravatar.cc/150?img=4",
+      "specialization": [
+        "ADHD",
+        "Autism Spectrum",
+        "Child Psychology"
+      ],
+      "education": "Ph.D. in Child Psychology, Yale University",
+      "bio": "Specialist in working with children and adolescents with developmental challenges.",
+      "yearsOfExperience": 12,
+      "hourlyRate": 160,
+      "availability": [],
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "1759390669995reoem9dmx",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:37:49.995Z",
+      "password": "123456"
+    },
+    {
+      "id": "1759390673256rmrdrsr4x",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:37:53.256Z",
+      "password": "123456"
+    },
+    {
+      "id": "1759390680356h39suyude",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:38:00.356Z",
+      "password": "123456"
+    },
+    {
+      "id": "1759390680823y0ieynpp2",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:38:00.823Z",
+      "password": "123456"
+    },
+    {
+      "id": "1759390681038kp8xddgjm",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:38:01.038Z",
+      "password": "123456"
+    },
+    {
+      "id": "1759390681223dxuj60nt9",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:38:01.223Z",
+      "password": "123456"
+    },
+    {
+      "id": "17593909136839vx907xkt",
+      "email": "test@t",
+      "role": "therapist",
+      "firstName": "Test",
+      "lastName": "TestT",
+      "avatar": "https://i.pravatar.cc/150?u=test@t",
+      "createdAt": "2025-10-02T07:41:53.683Z",
+      "password": "123456"
+    },
+    {
+      "id": "1759407892548mr9yux8w8",
+      "email": "t@test.com",
+      "role": "patient",
+      "firstName": "T ",
+      "lastName": "Test",
+      "avatar": "https://i.pravatar.cc/150?u=t@test.com",
+      "createdAt": "2025-10-02T12:24:52.548Z",
+      "password": "1234567"
+    },
+    {
+      "id": "1759408379016z25ysusg0",
+      "email": "therapist@test.com",
+      "role": "patient",
+      "firstName": "t",
+      "lastName": "t",
+      "avatar": "https://i.pravatar.cc/150?u=therapist@test.com",
+      "createdAt": "2025-10-02T12:32:59.016Z",
+      "password": "1234567"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "patientId": "1",
+      "therapistId": "2",
+      "date": "2025-10-05",
+      "startTime": "10:00",
+      "endTime": "11:00",
+      "status": "confirmed",
+      "reason": "Initial consultation for anxiety management",
+      "notes": "First session",
+      "createdAt": "2025-10-01T00:00:00.000Z",
+      "updatedAt": "2025-10-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "patientId": "1",
+      "therapistId": "2",
+      "date": "2025-10-12",
+      "startTime": "14:00",
+      "endTime": "15:00",
+      "status": "pending",
+      "reason": "Follow-up session",
+      "notes": "",
+      "createdAt": "2025-10-01T00:00:00.000Z",
+      "updatedAt": "2025-10-01T00:00:00.000Z"
+    }
+  ],
+  "availability": [
+    {
+      "id": "1",
+      "therapistId": "2",
+      "dayOfWeek": 1,
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "isAvailable": true
+    },
+    {
+      "id": "2",
+      "therapistId": "2",
+      "dayOfWeek": 2,
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "isAvailable": true
+    },
+    {
+      "id": "3",
+      "therapistId": "2",
+      "dayOfWeek": 3,
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "isAvailable": true
+    },
+    {
+      "id": "4",
+      "therapistId": "3",
+      "dayOfWeek": 1,
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "isAvailable": true
+    },
+    {
+      "id": "5",
+      "therapistId": "3",
+      "dayOfWeek": 4,
+      "startTime": "10:00",
+      "endTime": "18:00",
+      "isAvailable": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+<mat-card class="therapist-card">
+  <mat-card-header>
+    <img
+      mat-card-avatar
+      [src]="therapist().avatar"
+      [alt]="therapist().firstName + ' ' + therapist().lastName"
+      class="therapist-avatar">
+    <mat-card-title>
+      {{ therapist().firstName }} {{ therapist().lastName }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ therapist().yearsOfExperience }} years of experience
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (therapist().bio) {
+      <p class="bio">{{ therapist().bio }}</p>
+    }
+
+    @if (therapist().specialization && therapist().specialization.length > 0) {
+      <div class="specializations">
+        <strong>Specialties:</strong>
+        <mat-chip-set aria-label="Therapist specializations">
+          @for (spec of therapist().specialization; track spec) {
+            <mat-chip>{{ spec }}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+    }
+
+    <div class="info-row">
+      @if (therapist().hourlyRate) {
+        <p class="rate">
+          <strong>Rate:</strong> ${{ therapist().hourlyRate }}/hour
+        </p>
+      }
+      @if (therapist().email) {
+        <p class="contact">
+          <strong>Contact:</strong> {{ therapist().email }}
+        </p>
+      }
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onViewProfile()"
+      [attr.aria-label]="'View profile of ' + therapist().firstName + ' ' + therapist().lastName">
+      View Profile
+    </button>
+  </mat-card-actions>
+</mat-card>

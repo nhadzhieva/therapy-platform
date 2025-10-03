@@ -1,0 +1,153 @@
+// Toolbar styles
+mat-toolbar {
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .user-name {
+    margin-right: 16px;
+    font-weight: 500;
+  }
+}
+
+:host {
+  --primary-color: #4caf50;
+  --accent-color: #ff4081;
+  --warn-color: #f44336;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --background-light: #f9f9f9;
+  --background-hover: #f0f0f0;
+}
+
+// Container
+.dashboard-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Welcome section
+.welcome-section {
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+}
+
+// Stats Grid
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  mat-card-content {
+    padding: 16px;
+  }
+
+  .stat-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: var(--primary-color);
+    }
+
+    .stat-text {
+      h3 {
+        font-size: 32px;
+        font-weight: 500;
+        margin: 0;
+        color: var(--text-primary);
+      }
+
+      p {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+    }
+  }
+}
+
+// Appointments Section
+.appointments-section {
+  margin-bottom: 24px;
+
+  mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+// Loading and Empty States
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+}
+
+// Action Cards Grid
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.action-card {
+  mat-icon[mat-card-avatar] {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  mat-card-content {
+    p {
+      color: var(--text-secondary);
+    }
+  }
+}
