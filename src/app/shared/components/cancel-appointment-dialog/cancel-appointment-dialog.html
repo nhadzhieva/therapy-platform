@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Cancel appointment</h2>
+<mat-dialog-content>
+    <p>Are you sure you want to cancel your appointment?</p>
+<div class="appointment-details">
+  <p><strong>Date:</strong> {{ appointment.date }}</p>
+  <p><strong>Time:</strong> {{ appointment.startTime }} - {{ appointment.endTime }}</p>
+  <p><strong>Reason:</strong> {{ appointment.reason }}</p>
+</div>
+<p class="warning">⚠️ This action cannot be undone.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>No, keep it</button>
+    <button mat-button color="warn" [mat-dialog-close]="true">Yes, cancel it</button>
+</mat-dialog-actions> 
