@@ -72,7 +72,7 @@ export class AppointmentsEffects {
             AppointmentsActions.cancelAppointmentSuccess({ appointment })
           ),
           catchError((error) =>
-            of(AppointmentsActions.cancelAppointmentFailure({ error: error.message }))
+            of(AppointmentsActions.cancelAppointmentFailure({ id, error: error.message }))
           )
         )
       )
@@ -89,7 +89,7 @@ export class AppointmentsEffects {
             AppointmentsActions.confirmAppointmentSuccess({ appointment })
           ),
           catchError((error) =>
-            of(AppointmentsActions.confirmAppointmentFailure({ error: error.message }))
+            of(AppointmentsActions.confirmAppointmentFailure({ id, error: error.message }))
           )
         )
       )

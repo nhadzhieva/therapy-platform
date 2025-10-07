@@ -10,6 +10,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialog } from '@angular/material/dialog';
+import { CancelAppointmentDialog } from '../../../shared/components/cancel-appointment-dialog/cancel-appointment-dialog';
+import { firstValueFrom } from 'rxjs';  
 
 import {
   logout,
@@ -19,7 +22,9 @@ import {
   selectUpcomingAppointments,
   selectPastAppointments,
   selectPendingAppointments,
-  selectAppointmentsLoading
+  selectAppointmentsLoading,
+  selectCancellingIds,
+  selectOperationErrors
 } from '../../../store';
 import { Appointment, AppointmentStatus } from '../../../shared/models';
 
@@ -36,16 +41,19 @@ import { Appointment, AppointmentStatus } from '../../../shared/models';
     MatChipsModule,
     MatProgressSpinnerModule,
     MatTabsModule
-  ],
+],
   templateUrl: './appointments.html',
   styleUrls: ['./appointments.scss']
 })
 export class AppointmentsComponent {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
+  private readonly matDialog = inject(MatDialog);
 
   readonly user = toSignal(this.store.select(selectCurrentUser));
   readonly loading = toSignal(this.store.select(selectAppointmentsLoading), { initialValue: false });
+  readonly cancellingIds = toSignal(this.store.select(selectCancellingIds), {initialValue: []});
+  readonly operationErrors = toSignal(this.store.select(selectOperationErrors), { initialValue: {} as {[key: string]: string | null} });
 
   readonly AppointmentStatus = AppointmentStatus;
 
@@ -84,8 +92,14 @@ export class AppointmentsComponent {
     this.store.dispatch(logout());
   }
 
-  cancelAppointment(appointment: Appointment): void {
-    if (confirm('Are you sure you want to cancel this appointment?')) {
+  async cancelAppointment(appointment: Appointment): Promise<void> {
+    const dialogRef = this.matDialog.open(CancelAppointmentDialog, {
+      data: {appointment},
+      disableClose: true,      
+    });
+
+    const result = await firstValueFrom(dialogRef.afterClosed());
+    if(result === true) {
       this.store.dispatch(cancelAppointment({ id: appointment.id }));
     }
   }
@@ -123,5 +137,13 @@ export class AppointmentsComponent {
   canCancel(appointment: Appointment): boolean {
     return appointment.status === AppointmentStatus.PENDING ||
            appointment.status === AppointmentStatus.CONFIRMED;
+  }
+
+  isAppointmentCanceling(appointment: Appointment): boolean {
+    return this.cancellingIds().includes(appointment.id);
+  }
+
+  getAppointmentCancelError(appointmentId: string): string | null {
+    return this.operationErrors()[appointmentId] || null;
   }
 }

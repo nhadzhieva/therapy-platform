@@ -59,7 +59,7 @@ export const cancelAppointmentSuccess = createAction(
 
 export const cancelAppointmentFailure = createAction(
   '[Appointments] Cancel Appointment Failure',
-  props<{ error: string }>()
+  props<{ id: string; error: string }>()
 );
 
 // Confirm appointment (therapist only)
@@ -75,5 +75,5 @@ export const confirmAppointmentSuccess = createAction(
 
 export const confirmAppointmentFailure = createAction(
   '[Appointments] Confirm Appointment Failure',
-  props<{ error: string }>()
+  props<{ id: string; error: string }>()
 );

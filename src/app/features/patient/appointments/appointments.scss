@@ -238,7 +238,18 @@
         height: 18px;
         margin-right: 0.25rem;
       }
+
+      mat-spinner {
+      display: inline-block;
+      margin-right: 0.5rem;
     }
+    }
+
+    .error-text {
+    color: #f44336;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
   }
 }
 

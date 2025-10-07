@@ -83,12 +83,26 @@
                       }
                     </div>
 
-                    <div class="appointment-actions">
+                     <div class="appointment-actions">
                       @if (canCancel(appointment)) {
-                        <button mat-stroked-button color="warn" (click)="cancelAppointment(appointment)">
-                          <mat-icon>cancel</mat-icon>
-                          Cancel
+                        <button
+                         mat-stroked-button
+                         color="warn"
+                         (click)="cancelAppointment(appointment)"
+                         [disabled]="isAppointmentCanceling(appointment)">
+                         @if(isAppointmentCanceling(appointment)) {
+                           <mat-spinner diameter="20"></mat-spinner>
+                           Cancelling...
+                         } @else {
+                          <ng-container>
+                           <mat-icon>cancel</mat-icon>
+                           Cancel
+                           </ng-container>
+                         }
                         </button>
+                        @if(getAppointmentCancelError(appointment.id); as error) {
+                          <p class="error-text">{{ error }}</p>
+                        }
                       }
                     </div>
                   </mat-card-content>
@@ -156,10 +170,24 @@
 
                     <div class="appointment-actions">
                       @if (canCancel(appointment)) {
-                        <button mat-stroked-button color="warn" (click)="cancelAppointment(appointment)">
-                          <mat-icon>cancel</mat-icon>
-                          Cancel
+                        <button
+                         mat-stroked-button
+                         color="warn"
+                         (click)="cancelAppointment(appointment)"
+                         [disabled]="isAppointmentCanceling(appointment)">
+                         @if(isAppointmentCanceling(appointment)) {
+                           <mat-spinner diameter="20"></mat-spinner>
+                           Cancelling...
+                         } @else {
+                          <ng-container>
+                           <mat-icon>cancel</mat-icon>
+                           Cancel
+                           </ng-container>
+                         }
                         </button>
+                        @if(getAppointmentCancelError(appointment.id); as error) {
+                          <p class="error-text">{{ error }}</p>
+                        }
                       }
                     </div>
                   </mat-card-content>
