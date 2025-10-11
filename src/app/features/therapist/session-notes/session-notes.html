@@ -1,0 +1,52 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">Session Notes</span>
+  <span class="spacer"></span>
+  @if (user(); as user) {
+    <span class="user-name">{{ user.firstName }}</span>
+  }
+  <button mat-icon-button (click)="onLogout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  @if (loading()) {
+    <div class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading session notes...</p>
+    </div>
+  } @else if (!loading() && sessionNotes().length > 0) {
+    <div class="notes-list">
+      @for (note of sessionNotes(); track note.id) {
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Session with Patient {{ note.patientId }}</mat-card-title>
+            <mat-card-subtitle>{{ note.createdAt | date:'fullDate' }} at {{ note.createdAt | date:'shortTime' }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ note.content }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" (click)="onEditNote(note)">
+              <mat-icon>edit</mat-icon>
+              Edit
+            </button>
+            <button mat-button color="warn" (click)="onDeleteNote(note)">
+              <mat-icon>delete</mat-icon>
+              Delete
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <div class="no-notes">
+      <p>No session notes available.</p>
+    </div>
+  }
+
+</div>
+

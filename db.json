@@ -234,5 +234,25 @@
       "endTime": "18:00",
       "isAvailable": true
     }
+  ],
+  "sessionNotes": [
+    {
+      "id": "1",
+      "appointmentId": "1",
+      "therapistId": "2",
+      "patientId": "1",
+      "content": "Patient presented with moderate anxiety symptoms. Discussed coping mechanisms and breathing exercises. Patient was receptive and engaged throughout the session.",
+      "createdAt": "2025-10-05T11:15:00.000Z",
+      "updatedAt": "2025-10-05T11:15:00.000Z"
+    },
+    {
+      "id": "2",
+      "appointmentId": "2",
+      "therapistId": "2",
+      "patientId": "1",
+      "content": "Follow-up session. Patient showing improvement with anxiety management techniques. Assigned homework: practice deep breathing daily.",
+      "createdAt": "2025-10-12T14:30:00.000Z",
+      "updatedAt": "2025-10-12T14:30:00.000Z"
+    }
   ]
 }

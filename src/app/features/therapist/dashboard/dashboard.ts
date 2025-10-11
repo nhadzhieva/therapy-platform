@@ -24,11 +24,16 @@ import { logout, selectCurrentUser } from '../../../store';
   styleUrls: ['./dashboard.scss']
 })
 export class DashboardComponent {
-  private store = inject(Store);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
 
   user = toSignal(this.store.select(selectCurrentUser));
 
   onLogout(): void {
     this.store.dispatch(logout());
+  }
+
+  viewSessionNotes(): void {
+    this.router.navigate(['/therapist/session-notes']);
   }
 }

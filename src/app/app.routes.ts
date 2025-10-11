@@ -46,6 +46,10 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./features/therapist/dashboard/dashboard').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'session-notes',
+        loadComponent: () => import('./features/therapist/session-notes/session-notes').then(m => m.SessionNotes)
       }
       // TODO: Add more therapist routes when components are implemented
       // { path: 'profile', loadComponent: () => import('./features/therapist/profile/profile.component').then(m => m.ProfileComponent) },
